@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Women Safety | Setup</title>
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <div class="bg"></div>
+
+  <div class="container">
+    <div class="card">
+      <h1 class="title">Profile Setup</h1>
+      <p class="subtitle">Add contacts & enable permissions</p>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="name" placeholder="Enter your name" />
+      </div>
+
+      <h3 class="section-title">Emergency Contacts (4)</h3>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <p class="contact-title">Contact 1</p>
+          <input type="text" id="c1_name" placeholder="Name" />
+          <input type="tel" id="c1_phone" placeholder="Mobile Number" maxlength="10" />
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-title">Contact 2</p>
+          <input type="text" id="c2_name" placeholder="Name" />
+          <input type="tel" id="c2_phone" placeholder="Mobile Number" maxlength="10" />
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-title">Contact 3</p>
+          <input type="text" id="c3_name" placeholder="Name" />
+          <input type="tel" id="c3_phone" placeholder="Mobile Number" maxlength="10" />
+        </div>
+
+        <div class="contact-card">
+          <p class="contact-title">Contact 4</p>
+          <input type="text" id="c4_name" placeholder="Name" />
+          <input type="tel" id="c4_phone" placeholder="Mobile Number" maxlength="10" />
+        </div>
+      </div>
+
+      <h3 class="section-title">Permissions (Mandatory)</h3>
+
+      <div class="permission-box">
+        <div class="perm-row">
+          <div>
+            <p class="perm-title">Live Location</p>
+            <p class="perm-sub">Track from opening to closing website</p>
+          </div>
+          <button class="btn-outline" id="locationBtn">Enable</button>
+        </div>
+
+        <div class="perm-row">
+          <div>
+            <p class="perm-title">Camera (Photo Evidence)</p>
+            <p class="perm-sub">Capture proof during emergency</p>
+          </div>
+          <button class="btn-outline" id="cameraBtn">Enable</button>
+        </div>
+
+        <div class="perm-row">
+          <div>
+            <p class="perm-title">Microphone (Audio Evidence)</p>
+            <p class="perm-sub">Record proof during emergency</p>
+          </div>
+          <button class="btn-outline" id="micBtn">Enable</button>
+        </div>
+      </div>
+
+      <button class="btn" id="saveContinueBtn">Save & Continue</button>
+      <p class="note" id="setupStatus"></p>
+    </div>
+  </div>
+
+  <script src="static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Location Tracking</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+
+</head>
+<body>
+  <h2>Live Location</h2>
+  <div id="map" style="height:500px;"></div>
+
+  <script>
+    const phone = new URLSearchParams(window.location.search).get("user");
+
+    async function loadLocation() {
+      const res = await fetch(
+        "https://YOUR_BACKEND_URL/user/location?user=" + phone
+      );
+      const data = await res.json();
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: { lat: data.lat, lng: data.lon },
+      });
+
+      new google.maps.Marker({
+        position: { lat: data.lat, lng: data.lon },
+        map: map,
+      });
+    }
+
+    setInterval(loadLocation, 5000);
+  </script>
+</body>
+</html>

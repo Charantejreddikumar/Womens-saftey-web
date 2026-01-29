@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Women Safety | Dashboard</title>
+ <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <div class="dashboard-container">
+
+    <!-- Top Bar -->
+    <div class="topbar">
+      <div>
+        <h2 class="dash-title">Safety Dashboard</h2>
+        <p class="dash-sub" id="welcomeText">Welcome</p>
+      </div>
+      <button class="btn-outline small" id="logoutBtn">Logout</button>
+    </div>
+
+    <!-- Status Cards -->
+    <div class="status-grid">
+      <div class="status-card">
+        <p class="status-label">Live Location</p>
+        <p class="status-value" id="locationStatus">OFF</p>
+        <p class="status-small" id="lastUpdate">Last update: --</p>
+      </div>
+
+      <div class="status-card">
+        <p class="status-label">User Safety Status</p>
+        <p class="status-value safe" id="dangerStatus">SAFE</p>
+        <p class="status-small" id="scoreText">Score: 0</p>
+      </div>
+
+      <div class="status-card">
+        <p class="status-label">Emergency Contacts</p>
+        <p class="status-value" id="contactCount">0 Added</p>
+        <p class="status-small">
+          WhatsApp Emergency Mode Enabled
+        </p>
+      </div>
+    </div>
+
+    <!-- SOS Area -->
+    <div class="sos-area">
+      <button class="sos-btn" id="sosBtn">🚨 SOS</button>
+      <p class="sos-note">
+        Press SOS to open WhatsApp with your live location and emergency message.
+      </p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-grid">
+      <button class="action-btn" id="unsafeBtn">
+        I Feel Unsafe
+      </button>
+
+      <button class="action-btn" id="photoBtn">
+        Capture Photo Evidence
+      </button>
+
+      <button class="action-btn" id="audioBtn">
+        Record Audio Evidence
+      </button>
+
+      <button class="action-btn danger" id="sendAlertBtn">
+        Send Emergency Alert
+      </button>
+    </div>
+
+    <!-- Status Message -->
+    <p class="note center" id="dashStatus"></p>
+
+  </div>
+
+  <!-- Main JS -->
+ <script src="static/js/app.js"></script>
+</body>
+</html>
