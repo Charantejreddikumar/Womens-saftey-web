@@ -285,25 +285,81 @@ if (qs("sosBtn")) {
 
   qs("sendAlertBtn").onclick = () => triggerWhatsAppSOS(userData);
 
-  qs("photoBtn").onclick = async () => {
-    try {
-      const s = await navigator.mediaDevices.getUserMedia({ video: true });
-      s.getTracks().forEach(t => t.stop());
-      dashStatus.textContent = "Photo captured (demo).";
-    } catch {
-      dashStatus.textContent = "Camera permission denied.";
-    }
-  };
+ qs("photoBtn").onclick = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
 
-  qs("audioBtn").onclick = async () => {
-    try {
-      const s = await navigator.mediaDevices.getUserMedia({ audio: true });
-      s.getTracks().forEach(t => t.stop());
-      dashStatus.textContent = "Audio recorded (demo).";
-    } catch {
-      dashStatus.textContent = "Microphone permission denied.";
-    }
-  };
+    const video = document.createElement("video");
+    video.srcObject = stream;
+    await video.play();
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    canvas.getContext("2d").drawImage(video, 0, 0);
+
+    stream.getTracks().forEach(t => t.stop());
+
+    canvas.toBlob(async blob => {
+      const fd = new FormData();
+      fd.append("file", blob, "photo.jpg");
+
+      await fetch(API_BASE + "/upload/photo", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + getToken()
+        },
+        body: fd
+      });
+
+      dashStatus.textContent = "Photo uploaded to cloud.";
+    });
+
+  } catch {
+    dashStatus.textContent = "Camera permission denied.";
+  }
+};
+
+
+ qs("audioBtn").onclick = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    const recorder = new MediaRecorder(stream);
+    const chunks = [];
+
+    recorder.ondataavailable = e => chunks.push(e.data);
+
+    recorder.onstop = async () => {
+      const blob = new Blob(chunks, { type: "audio/webm" });
+
+      const fd = new FormData();
+      fd.append("file", blob, "audio.webm");
+
+      await fetch(API_BASE + "/upload/audio", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + getToken()
+        },
+        body: fd
+      });
+
+      dashStatus.textContent = "Audio uploaded.";
+    };
+
+    recorder.start();
+
+    // Record 5 seconds
+    setTimeout(() => {
+      recorder.stop();
+      stream.getTracks().forEach(t => t.stop());
+    }, 5000);
+
+  } catch {
+    dashStatus.textContent = "Microphone permission denied.";
+  }
+};
 
   qs("logoutBtn").onclick = () => {
     clearAuth();
@@ -311,3 +367,4 @@ if (qs("sosBtn")) {
     window.location.href = "login.html";
   };
 }
+
